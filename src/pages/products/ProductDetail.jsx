@@ -8,23 +8,29 @@ function ProductDetail({setPage,productId}){
     const [quantity, setQuantity] = useState("")
     const [cartMessage, setCartMessage] = useState("")
 
-    const isValidId = (id) => Number.isInteger(Number(id)) && Number(id) > 0
-
+    
     useEffect(()=>{
-        if (!isValidId(productId)) return
+        
         const fetchProduct=async()=>{
-            const safeProductId = encodeURIComponent(productId)
-            const response= await axios.get(`http://localhost:8000/api/products/${safeProductId}`,{withCredentials: true})
+            const productIdNum = Number(productId)
+            if (!Number.isInteger(productIdNum) || productIdNum <= 0) {
+                throw new Error("Invalid Product ID")
+            }
+            
+            const response= await axios.get(`http://localhost:8000/api/products/${productIdNum}`,{withCredentials: true})
             setProduct(response.data)
         }
         fetchProduct()
     },[])
 
     const handleDelete = async () => {
-        if (!isValidId(productId)) return    
+        const productIdNum = Number(productId)
+            if (!Number.isInteger(productIdNum) || productIdNum <= 0) {
+                throw new Error("Invalid Product ID")
+            }  
         try {
-            const safeProductId = encodeURIComponent(productId)
-            await axios.delete(`http://localhost:8000/api/products/${safeProductId}`, {withCredentials: true})
+           
+            await axios.delete(`http://localhost:8000/api/products/${productIdNum}`, {withCredentials: true})
             setPage("productList")
         } catch (error) {
             console.error(error)
@@ -33,10 +39,13 @@ function ProductDetail({setPage,productId}){
     }
 
     const handleAddToCart = async () => {
-        if (!isValidId(customerId)) return
+       const customerIdNum = Number(customerId)
+            if (!Number.isInteger(customertIdNum) || customerIdNum <= 0) {
+                throw new Error("Invalid Customer ID")
+            }
         try {
             const safeCustomerId = encodeURIComponent(customerId)
-            const orderResponse = await axios.get(`http://localhost:8000/api/carts/active/${safeCustomerId}`, {withCredentials: true})
+            const orderResponse = await axios.get(`http://localhost:8000/api/carts/active/${customerIdNum}`, {withCredentials: true})
             const activeOrderId = orderResponse.data.order_id
 
             await axios.post("http://localhost:8000/api/order_item/", {

@@ -13,7 +13,10 @@ function Login({ setPage }) {
                 email: email,
                 password: password
             },{ withCredentials: true })  
-    
+            
+            if (typeof response.data.access_token !== "string" || response.data.access_token.length === 0) {
+                throw new Error("Invalid token received")
+            }
             const token = typeof response.data.access_token === "string"? response.data.access_token : ""
             const isAdmin = Boolean(response.data.is_admin)
             const sanitizedEmail = String(email).trim()

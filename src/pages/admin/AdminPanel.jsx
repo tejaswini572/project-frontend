@@ -33,13 +33,12 @@ function AdminPanel({ setPage }) {
                 stock_quantity: Number.parseInt(form.stock_quantity)
             }
             if (editId) {
-            if (!Number.isInteger(editId)) {
-                setMessage("Invalid product id")
-                return
-            }
-            const safeId = encodeURIComponent(editId)
-            await axios.put(`http://localhost:8000/api/products/${safeId}`, payload, { headers })
-            setMessage("Product updated!")
+                const editIdNum = Number(editId)
+                if (!Number.isInteger(editIdNum) || editIdNum <= 0) {
+                    throw new Error("Invalid product id")
+                }
+                await axios.put(`http://localhost:8000/api/products/${editIdNum}`, payload, { headers })
+                setMessage("Product updated!")
             } else {
                 await axios.post("http://localhost:8000/api/products/", payload, { headers })
                 setMessage("Product added!")
@@ -63,13 +62,12 @@ function AdminPanel({ setPage }) {
     }
 
     const handleDelete = async (id) => {
-        if(!Number.isInteger(id)) {
-            setMessage("Invalid product id")
-            return
+        const idNum = Number(id)
+        if (!Number.isInteger(idNum) || idNum <= 0) {
+            throw new Error("Invalid product id")
         }
         try {
-            const safeId = encodeURIComponent(id)
-            await axios.delete(`http://localhost:8000/api/products/${safeId}`, { headers })
+            await axios.delete(`http://localhost:8000/api/products/${idNum}`, { headers })
             setMessage("Product deleted!")
             fetchProducts()
         } catch {
@@ -94,7 +92,6 @@ function AdminPanel({ setPage }) {
                     </div>
                 </div>
 
-                
                 <div className="bg-white p-6 rounded-xl shadow mb-6">
                     <h2 className="text-xl font-semibold mb-4">{editId ? "Edit Product" : "Add Product"}</h2>
                     <div className="grid grid-cols-2 gap-4">
@@ -126,7 +123,6 @@ function AdminPanel({ setPage }) {
                     </div>
                 </div>
 
-                
                 <div className="bg-white rounded-xl shadow overflow-hidden">
                     <table className="w-full text-left">
                         <thead className="bg-gray-50 border-b">
