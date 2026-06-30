@@ -33,11 +33,34 @@ function ForgotPassword({ setPage }) {
                     className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition">
                     Submit
                 </button>
-                {message && <p className="text-center text-sm mt-4 text-green-500">{message}</p>}
-                <p onClick={() => setPage("changePassword")}
-                    className="text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline">
+                return (
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+            <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Change Password</h2>
+                <input type="email" placeholder="Enter your email" value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="password" placeholder="Enter old password" value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="password" placeholder="Enter new password" value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <button onClick={handleChangePassword}
+                    className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded-lg transition">
+                    Submit
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setPage("login")}
+                    className="block w-full text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline bg-transparent border-none">
                     Reset Password
-                </p>
+                </button>
+
+                
+            </div>
+        </div>
+    )
             </div>
         </div>
     )

@@ -43,11 +43,14 @@ function ChangePassword({ setPage }) {
                     className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded-lg transition">
                     Submit
                 </button>
-                {message && <p className="text-center text-sm mt-4 text-green-500">{message}</p>}
-                <p onClick={() => setPage("login")}
-                    className="text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline">
+                <button
+                    type="button"
+                    onClick={() => setPage("login")}
+                    className="block w-full text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline bg-transparent border-none">
                     Back to Login
-                </p>
+                </button>
+
+                
             </div>
         </div>
     )
