@@ -30,18 +30,12 @@ function ProductList({ setPage, setSelectedProductId }) {
             <div className="grid grid-cols-3 gap-6">
                 {products.map(p => (
                     <div key={p.product_id}
-                        role="button"
-                        tabIndex={0}
+                        type="button"
                         onClick={() => {
                             setSelectedProductId(p.product_id)
                             setPage("productDetail")
                         }}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                                setSelectedProductId(p.product_id)
-                                setPage("productDetail")
-                            }
-                        }}
+                        
                         className="bg-white rounded-xl shadow-md p-6 cursor-pointer">
                         <h3 className="text-lg font-semibold text-gray-800">{p.product_name}</h3>
                         <p className="text-gray-500 text-sm">{p.category}</p>

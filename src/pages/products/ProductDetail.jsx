@@ -44,6 +44,7 @@ const handleAddToCart = async () => {
 
         setCartMessage("Added to cart successfully")
     } catch (error) {
+        console.error(error)
         setCartMessage("Error adding to cart")
     }
 }

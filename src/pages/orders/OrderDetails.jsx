@@ -31,6 +31,7 @@ function OrderDetail({setPage, orderId}){
             await axios.delete(`http://localhost:8000/api/carts/${orderId}`, {withCredentials: true})
             setPage("orderList")
         } catch (error) {
+            console.error(error)
             alert("Cannot delete this order — it still has items. Remove all items first.")
     }
     }

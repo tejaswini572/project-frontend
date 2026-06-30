@@ -27,17 +27,10 @@ function CustomerList({ setPage, setSelectedCustomerId }) {
             <div className="grid grid-cols-3 gap-6">
                 {customers.map(c => (
                     <div key={c.customer_id}
-                        role="button"
-                        tabIndex={0}
+                        type="button"
                         onClick={() => {
                             setSelectedCustomerId(c.customer_id)
                             setPage("customerDetail")
-                        }}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                                setSelectedCustomerId(c.customer_id)
-                                setPage("customerDetail")
-                            }
                         }}
                         className="bg-white rounded-xl shadow-md p-6 cursor-pointer">
                         <h3 className="text-lg font-semibold text-gray-800">{c.first_name} {c.last_name}</h3>

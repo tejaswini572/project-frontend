@@ -30,18 +30,12 @@ function OrderList({ setPage, setSelectedOrderId }) {
             <div className="grid grid-cols-3 gap-6">
                 {orders.map(o => (
                     <div key={o.order_id}
-                        role="button"
-                        tabIndex={0}
+                        type="button"
                         onClick={() => {
                             setSelectedOrderId(o.order_id)
                             setPage("orderDetail")
                         }}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                                setSelectedOrderId(o.order_id)
-                                setPage("orderDetail")
-                            }
-                        }}
+                       
                         className="bg-white rounded-xl shadow-md p-6 cursor-pointer">
                         <h3 className="text-lg font-semibold text-gray-800">Order #{o.order_id}</h3>
                         <p className="text-gray-500 text-sm">Customer ID: {o.customer_id}</p>
