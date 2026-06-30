@@ -43,6 +43,7 @@ function ChangePassword({ setPage }) {
                     className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded-lg transition">
                     Submit
                 </button>
+                {message && <p className="text-center text-sm mt-4 text-green-500">{message}</p>}
                 <button
                     type="button"
                     onClick={() => setPage("login")}

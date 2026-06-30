@@ -29,19 +29,19 @@ function ProductList({ setPage, setSelectedProductId }) {
             </button>
             <div className="grid grid-cols-3 gap-6">
                 {products.map(p => (
-                    <div key={p.product_id}
+                    <button
+                        key={p.product_id}
                         type="button"
                         onClick={() => {
                             setSelectedProductId(p.product_id)
                             setPage("productDetail")
                         }}
-                        
-                        className="bg-white rounded-xl shadow-md p-6 cursor-pointer">
+                        className="bg-white rounded-xl shadow-md p-6 cursor-pointer text-left block w-full">
                         <h3 className="text-lg font-semibold text-gray-800">{p.product_name}</h3>
                         <p className="text-gray-500 text-sm">{p.category}</p>
                         <p className="text-blue-500 font-bold mt-2">${p.price}</p>
                         <p className="text-gray-400 text-sm">Stock: {p.stock_quantity}</p>
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>

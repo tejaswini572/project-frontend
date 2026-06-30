@@ -26,7 +26,8 @@ function CustomerList({ setPage, setSelectedCustomerId }) {
                 className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg mb-6">+Add Customer</button>
             <div className="grid grid-cols-3 gap-6">
                 {customers.map(c => (
-                    <div key={c.customer_id}
+                    <button
+                        key={c.customer_id}
                         type="button"
                         onClick={() => {
                             setSelectedCustomerId(c.customer_id)
@@ -36,7 +37,7 @@ function CustomerList({ setPage, setSelectedCustomerId }) {
                         <h3 className="text-lg font-semibold text-gray-800">{c.first_name} {c.last_name}</h3>
                         <p className="text-gray-500 text-sm">{c.email}</p>
                         <p className="text-gray-400 text-sm">{c.phone}</p>
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>

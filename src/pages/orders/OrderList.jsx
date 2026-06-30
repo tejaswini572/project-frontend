@@ -29,19 +29,19 @@ function OrderList({ setPage, setSelectedOrderId }) {
             </button>
             <div className="grid grid-cols-3 gap-6">
                 {orders.map(o => (
-                    <div key={o.order_id}
+                    <button
+                        key={o.order_id}
                         type="button"
                         onClick={() => {
                             setSelectedOrderId(o.order_id)
                             setPage("orderDetail")
                         }}
-                       
-                        className="bg-white rounded-xl shadow-md p-6 cursor-pointer">
+                        className="bg-white rounded-xl shadow-md p-6 cursor-pointer text-left block w-full">
                         <h3 className="text-lg font-semibold text-gray-800">Order #{o.order_id}</h3>
                         <p className="text-gray-500 text-sm">Customer ID: {o.customer_id}</p>
                         <p className="text-blue-500 font-bold mt-2">${o.total_amount}</p>
                         <p className="text-gray-400 text-sm">Status: {o.status}</p>
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>
