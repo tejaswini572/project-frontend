@@ -1,34 +1,34 @@
 import axios from "axios"
-import {useState} from "react"
+import { useState } from "react"
 import PropTypes from "prop-types"
 
-function AddProduct({setPage}){
-    const [productName,setProductName]=useState("")
-    const [category,setCategory]=useState("")
-    const [price,setPrice]=useState("")
-    const [stockQuantity,setStockQuantity] =useState("")
-    const [message,setMessage] =useState("")
+function AddProduct({ setPage }) {
+    const [productName, setProductName] = useState("")
+    const [category, setCategory] = useState("")
+    const [price, setPrice] = useState("")
+    const [stockQuantity, setStockQuantity] = useState("")
+    const [message, setMessage] = useState("")
 
-    const handleAddProduct=async()=>{
-        try{
-    const response=await axios.post("http://localhost:8000/api/products/",{
-        product_name:productName,
-        category:category,
-        price:price,
-        stock_quantity:stockQuantity
-    },{withCredentials: true})
-    setMessage("Product added successfully")
-}catch(error){
-    const detail = error.response?.data?.detail
-    if(typeof detail === "string"){
-        setMessage(detail)
-    } else {
-        setMessage("Error occurred")
+    const handleAddProduct = async () => {
+        try {
+            const response = await axios.post("http://localhost:8000/api/products/", {
+                product_name: productName,
+                category: category,
+                price: price,
+                stock_quantity: stockQuantity
+            }, { withCredentials: true })
+            setMessage("Product added successfully")
+        } catch (error) {
+            const detail = error.response?.data?.detail
+            if (typeof detail === "string") {
+                setMessage(detail)
+            } else {
+                setMessage("Error occurred")
+            }
+        }
     }
-}
-    }
-   return(
-    <div className="min-h-screen bg-gray-100 p-8 flex items-center justify-center">
+    return (
+        <div className="min-h-screen bg-gray-100 p-8 flex items-center justify-center">
             <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-md">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">Add Product</h2>
                 <input value={productName} onChange={e => setProductName(e.target.value)}
@@ -48,10 +48,12 @@ function AddProduct({setPage}){
                     Add Product
                 </button>
                 {message && <p className="text-center text-sm text-green-500">{message}</p>}
-                <p onClick={() => setPage("productList")}
-                    className="text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline">
+                <button
+                    type="button"
+                    onClick={() => setPage("productList")}
+                    className="block w-full text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline bg-transparent border-none">
                     Back to Products
-                </p>
+                </button>
             </div>
         </div>
     )
@@ -62,4 +64,3 @@ AddProduct.propTypes = {
 }
 
 export default AddProduct
-  

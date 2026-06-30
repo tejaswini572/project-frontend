@@ -89,7 +89,7 @@ return(
 
 ProductDetail.propTypes = {
     setPage: PropTypes.func.isRequired,
-    productIdId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
+    productId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
 }
 
 
