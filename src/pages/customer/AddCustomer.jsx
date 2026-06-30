@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from  "react"
+import PropTypes from "prop-types"
 
 function AddCustomer({ setPage }){
     const [firstName, setFirstName ]= useState("")
@@ -51,6 +52,10 @@ function AddCustomer({ setPage }){
             </div>
         </div>
     )
+}
+
+AddCustomer.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 
 export default AddCustomer

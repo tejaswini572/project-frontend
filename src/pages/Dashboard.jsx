@@ -1,4 +1,5 @@
 import { useState } from "react"
+import PropTypes from "prop-types"
 
 function Dashboard({ setPage }) {
      const isAdmin = localStorage.getItem("is_admin") === "true"
@@ -32,6 +33,10 @@ function Dashboard({ setPage }) {
             </div>
         </div>
     )
+}
+
+Dashboard.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 
 export default Dashboard

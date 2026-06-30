@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react"
 import axios from "axios"
+import PropTypes from "prop-types"
 
 function OrderList({setPage, setSelectedOrderId}){
     const [orders, setOrders] = useState([])
@@ -40,6 +41,10 @@ function OrderList({setPage, setSelectedOrderId}){
             </div>
         </div>
     )
+}
+
+OrderList.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 
 export default OrderList

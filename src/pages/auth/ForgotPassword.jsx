@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import PropTypes from "prop-types"
 
 function ForgotPassword({ setPage }) {
     const [email, setEmail] = useState("")
@@ -40,6 +41,10 @@ function ForgotPassword({ setPage }) {
             </div>
         </div>
     )
+}
+
+ForgotPassword.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 
 export default ForgotPassword

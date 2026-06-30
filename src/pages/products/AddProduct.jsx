@@ -1,5 +1,6 @@
 import axios from "axios"
 import {useState} from "react"
+import PropTypes from "prop-types"
 
 function AddProduct({setPage}){
     const [productName,setProductName]=useState("")
@@ -54,6 +55,10 @@ function AddProduct({setPage}){
             </div>
         </div>
     )
+}
+
+AddProduct.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 
 export default AddProduct

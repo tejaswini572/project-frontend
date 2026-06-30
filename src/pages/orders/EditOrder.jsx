@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import PropTypes from "prop-types"
 
 function EditOrder({setPage, orderId}) {
     const [customerId, setCustomerId] = useState("")
@@ -58,4 +59,7 @@ function EditOrder({setPage, orderId}) {
     )
 }
 
+EditOrder.propTypes = {
+    setPage: PropTypes.func.isRequired
+}
 export default EditOrder

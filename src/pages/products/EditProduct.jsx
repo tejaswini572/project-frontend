@@ -65,5 +65,10 @@ function EditProduct({setPage,productId}){
             </div>
         </div>
     )
-        }
-   export default EditProduct
+}
+
+EditProduct.propTypes = {
+    setPage: PropTypes.func.isRequired
+}
+
+export default EditProduct

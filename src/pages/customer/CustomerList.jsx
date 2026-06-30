@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react"
 import axios from "axios"
+import PropTypes from "prop-types"
 
 function CustomerList ({ setPage,setSelectedCustomerId}){
     const[customers,setCustomers] = useState([])
@@ -36,5 +37,9 @@ function CustomerList ({ setPage,setSelectedCustomerId}){
             </div>
         </div>
     )
+}
+
+CustomerList.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 export default CustomerList

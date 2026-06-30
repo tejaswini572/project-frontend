@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import PropTypes from "prop-types"
 
 function AdminPanel({ setPage }) {
     const [products, setProducts] = useState([])
@@ -163,4 +164,7 @@ function AdminPanel({ setPage }) {
     )
 }
 
+AdminPanel.propTypes = {
+    setPage: PropTypes.func.isRequired
+}
 export default AdminPanel

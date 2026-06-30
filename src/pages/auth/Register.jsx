@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import PropTypes from "prop-types"
 
 function Register({ setPage }) {
     const [email, setEmail] = useState("")
@@ -45,6 +46,10 @@ function Register({ setPage }) {
             </div>
         </div>
     )
+}
+
+Register.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 
 export default Register

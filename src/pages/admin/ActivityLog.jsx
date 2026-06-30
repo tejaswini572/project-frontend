@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import PropTypes from "prop-types"
 
 function ActivityLog({ setPage }) {
     const [logs, setLogs] = useState([])
@@ -65,6 +66,10 @@ function ActivityLog({ setPage }) {
             </div>
         </div>
     )
+}
+
+ActivityLog.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 
 export default ActivityLog

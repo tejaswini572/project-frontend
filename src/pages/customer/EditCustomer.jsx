@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import PropTypes from "prop-types"
 
 function EditCustomer({setPage,customerId}) {
     const [firstName,setFirstName]=useState("")
@@ -62,6 +63,9 @@ return (
             </div>
         </div>
     )
+}
+EditCustomer.propTypes = {
+    setPage: PropTypes.func.isRequired
 }
 
 export default EditCustomer
