@@ -44,7 +44,7 @@ function ProductDetail({setPage,productId}){
                 throw new Error("Invalid Customer ID")
             }
         try {
-            const safeCustomerId = encodeURIComponent(customerId)
+            
             const orderResponse = await axios.get(`http://localhost:8000/api/carts/active/${customerIdNum}`, {withCredentials: true})
             const activeOrderId = orderResponse.data.order_id
 
