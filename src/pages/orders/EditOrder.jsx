@@ -27,7 +27,7 @@ function EditOrder({ setPage, orderId }) {
             return
         }
         try {
-            const response = await axios.put(`http://localhost:8000/api/carts/${orderId}`, {
+            await axios.put(`http://localhost:8000/api/carts/${orderId}`, {
                 customer_id: customerId,
                 total_amount: totalAmount,
                 status: status

@@ -25,6 +25,7 @@ const isValidId = (id) => Number.isInteger(Number(id)) && Number(id) > 0
         await axios.delete(`http://localhost:8000/api/products/${productId}`, {withCredentials: true})
         setPage("productList")
     } catch (error) {
+        console.error(error)
         alert("Error deleting product")
     }
 }

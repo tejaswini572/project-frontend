@@ -22,6 +22,7 @@ function CustomerDetail({ setPage, customerId }) {
             await axios.delete(`http://localhost:8000/api/users/${customerId}`, { withCredentials: true })
             setPage("customerList")
         } catch (error) {
+            console.error(error)
             alert("Error deleting the customer")
         }
     }

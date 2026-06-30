@@ -29,7 +29,7 @@ function EditProduct({ setPage, productId }) {
             return
         }
         try {
-            const response = await axios.put(`http://localhost:8000/api/products/${productId}`, {
+            await axios.put(`http://localhost:8000/api/products/${productId}`, {
                 product_name: productName,
                 category: category,
                 price: price,

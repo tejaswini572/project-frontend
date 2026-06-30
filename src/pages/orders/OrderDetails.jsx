@@ -42,6 +42,7 @@ function OrderDetail({setPage, orderId}){
          const response = await axios.get(`http://localhost:8000/api/carts/${orderId}`, {withCredentials: true})
         setOrder(response.data)
     } catch (error) {
+        console.error(error)
         alert("Error removing item")
     }
 }
