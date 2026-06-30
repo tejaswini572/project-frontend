@@ -2,9 +2,9 @@ import { useState } from "react"
 import axios from "axios"
 import PropTypes from "prop-types"
 
-// Basic JWT shape check: header.payload.signature, base64url segments only
+
 const JWT_PATTERN = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/
-// Simple, strict email format check
+
 const EMAIL_PATTERN = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 function sanitizeToken(value) {
