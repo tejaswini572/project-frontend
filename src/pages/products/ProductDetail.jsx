@@ -40,7 +40,7 @@ function ProductDetail({setPage,productId}){
 
     const handleAddToCart = async () => {
        const customerIdNum = Number(customerId)
-            if (!Number.isInteger(customertIdNum) || customerIdNum <= 0) {
+            if (!Number.isInteger(customerIdNum) || customerIdNum <= 0) {
                 throw new Error("Invalid Customer ID")
             }
         try {
