@@ -11,7 +11,7 @@ function AddProduct({ setPage }) {
 
     const handleAddProduct = async () => {
         try {
-            const response = await axios.post("http://localhost:8000/api/products/", {
+            await axios.post("http://localhost:8000/api/products/", {
                 product_name: productName,
                 category: category,
                 price: price,

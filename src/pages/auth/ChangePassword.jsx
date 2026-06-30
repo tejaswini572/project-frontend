@@ -10,7 +10,7 @@ function ChangePassword({ setPage }) {
 
     const handleChangePassword = async () => {
         try {
-             const response = await axios.post("http://localhost:8000/api/auth/change-password", {
+             await axios.post("http://localhost:8000/api/auth/change-password", {
                 email: email,
                 old_password: oldPassword,
                 new_password: password

@@ -10,7 +10,7 @@ function AddOrder({ setPage }) {
 
     const handleAddOrder = async () => {
         try {
-            const response = await axios.post("http://localhost:8000/api/carts/", {
+            await axios.post("http://localhost:8000/api/carts/", {
                 customer_id: customerId,
                 total_amount: totalAmount,
                 status: status

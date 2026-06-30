@@ -9,7 +9,7 @@ function Register({ setPage }) {
 
     const handleRegister = async () => {
         try {
-            const response = await axios.post("http://localhost:8000/api/auth/register", {
+            await axios.post("http://localhost:8000/api/auth/register", {
                 email: email,
                 password: password
             }, { withCredentials: true })

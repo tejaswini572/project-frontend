@@ -8,7 +8,7 @@ function ForgotPassword({ setPage }) {
 
     const handleForgotPassword = async () => {
         try {
-            const response = await axios.post("http://localhost:8000/api/auth/forgot-password", {
+            await axios.post("http://localhost:8000/api/auth/forgot-password", {
                 email: email
             }, { withCredentials: true })
             setMessage("Email verified, you can now reset password")

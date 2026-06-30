@@ -11,7 +11,7 @@ function AddCustomer({ setPage }){
 
     const handleAddCustomer = async() => {
         try {
-            const response = await axios.post("http://localhost:8000/api/users/", {
+            await axios.post("http://localhost:8000/api/users/", {
                 first_name: firstName,
                 last_name:lastName,
                 email:email,
