@@ -9,7 +9,7 @@ function Login({ setPage }) {
 
     const handleLogin = async () => {
         try {
-            await axios.post("http://localhost:8000/api/auth/login", {
+            const response = await axios.post("http://localhost:8000/api/auth/login", {
                 email: email,
                 password: password
             },{ withCredentials: true })  

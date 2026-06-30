@@ -11,7 +11,8 @@ function OrderDetail({setPage, orderId}){
     useEffect(()=>{
         const fetchOrder = async()=>{
             if (!isValidId(orderId)) return
-            const response = await axios.get(`http://localhost:8000/api/carts/${orderId}`, {withCredentials: true})
+            const safeOrderId = encodeURIComponent(orderId)
+            const response = await axios.get(`http://localhost:8000/api/carts/${safeOrderId}`, {withCredentials: true})
             setOrder(response.data)
         }
         fetchOrder()
@@ -19,7 +20,8 @@ function OrderDetail({setPage, orderId}){
     useEffect(()=>{
     const fetchItems = async()=>{
         if (!isValidId(orderId)) return
-        const response = await axios.get(`http://localhost:8000/api/order_item/order/${orderId}`, {withCredentials: true})
+        const safeOrderId = encodeURIComponent(orderId)
+        const response = await axios.get(`http://localhost:8000/api/order_item/order/${safeOrderId}`, {withCredentials: true})
         setItems(response.data)
     }
     fetchItems()
@@ -28,7 +30,8 @@ function OrderDetail({setPage, orderId}){
     const handleDelete = async () => {
         if (!isValidId(orderId)) return
         try {
-            await axios.delete(`http://localhost:8000/api/carts/${orderId}`, {withCredentials: true})
+            const safeId = encodeURIComponent(orderId)
+            await axios.delete(`http://localhost:8000/api/carts/${safeId}`, {withCredentials: true})
             setPage("orderList")
         } catch (error) {
             console.error(error)
@@ -38,9 +41,11 @@ function OrderDetail({setPage, orderId}){
     const handleRemoveItem = async (orderItemId) => {
         if (!isValidId(orderItemId) || !isValidId(orderId)) return
     try {
-        await axios.delete(`http://localhost:8000/api/order_item/${orderItemId}`, {withCredentials: true})
+        const safeId = encodeURIComponent(orderItemId)
+        await axios.delete(`http://localhost:8000/api/order_item/${safeId}`, {withCredentials: true})
         setItems(items.filter(item => item.order_item_id !== orderItemId))
-         const response = await axios.get(`http://localhost:8000/api/carts/${orderId}`, {withCredentials: true})
+         const safeOrderId = encodeURIComponent(orderId)
+        const response = await axios.get(`http://localhost:8000/api/carts/${safeOrderId}`, {withCredentials: true})
         setOrder(response.data)
     } catch (error) {
         console.error(error)
