@@ -27,7 +27,7 @@ const isValidId = (id) => Number.isInteger(Number(id)) && Number(id) > 0
     }
 }
 const handleAddToCart = async () => {
-    if (!isValidId(productId)) return
+    if (!isValidId(customerId)) return
     try {
         const orderResponse = await axios.get(`http://localhost:8000/api/carts/active/${customerId}`, {withCredentials: true})
         const activeOrderId = orderResponse.data.order_id

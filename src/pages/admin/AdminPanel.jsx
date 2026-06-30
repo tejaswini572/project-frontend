@@ -64,6 +64,7 @@ function AdminPanel({ setPage }) {
     const handleDelete = async (id) => {
         if(!Number.isInteger(id)) {
             setMessage("Invalid product id")
+            return
         }
         try {
             await axios.delete(`http://localhost:8000/api/products/${id}`, { headers })

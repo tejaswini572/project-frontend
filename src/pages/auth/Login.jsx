@@ -17,9 +17,9 @@ function Login({ setPage }) {
             const isAdmin = Boolean(response.data.is_admin)
             const sanitizedEmail = String(email).trim()
 
-            localStorage.setItem("token", response.data.access_token)      
-            localStorage.setItem("user_email", email)                      
-            localStorage.setItem("is_admin", response.data.is_admin) 
+            localStorage.setItem("token", token)      
+            localStorage.setItem("user_email", sanitizedEmail)                      
+            localStorage.setItem("is_admin", String(isAdmin))
             
             setPage("dashboard")
         } catch(error){
