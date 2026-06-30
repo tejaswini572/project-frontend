@@ -5,8 +5,11 @@ function OrderDetail({setPage, orderId}){
     const [order, setOrder] = useState(null)
     const [items, setItems] = useState([])
 
+ const isValidId = (id) => Number.isInteger(id) && id > 0
+
     useEffect(()=>{
         const fetchOrder = async()=>{
+            if (!isValidId(orderId)) return
             const response = await axios.get(`http://localhost:8000/api/carts/${orderId}`, {withCredentials: true})
             setOrder(response.data)
         }
@@ -14,6 +17,7 @@ function OrderDetail({setPage, orderId}){
     },[])
     useEffect(()=>{
     const fetchItems = async()=>{
+        if (!isValidId(orderId)) return
         const response = await axios.get(`http://localhost:8000/api/order_item/order/${orderId}`, {withCredentials: true})
         setItems(response.data)
     }
@@ -21,6 +25,7 @@ function OrderDetail({setPage, orderId}){
 },[])
 
     const handleDelete = async () => {
+        if (!isValidId(orderId)) return
         try {
             await axios.delete(`http://localhost:8000/api/carts/${orderId}`, {withCredentials: true})
             setPage("orderList")
@@ -29,6 +34,7 @@ function OrderDetail({setPage, orderId}){
     }
     }
     const handleRemoveItem = async (orderItemId) => {
+        if (!isValidId(orderItemId) || !isValidId(orderId)) return
     try {
         await axios.delete(`http://localhost:8000/api/order_item/${orderItemId}`, {withCredentials: true})
         setItems(items.filter(item => item.order_item_id !== orderItemId))

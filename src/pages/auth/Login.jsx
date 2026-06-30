@@ -12,9 +12,13 @@ function Login({ setPage }) {
                 email: email,
                 password: password
             },{ withCredentials: true })  
+    
+            const token = typeof response.data.access_token === "string"? response.data.access_token : ""
+            const isAdmin = Boolean(response.data.is_admin)
+            const sanitizedEmail = String(email).trim()
 
-            localStorage.setItem("token", response.data.access_token)      // ← SAVE TOKEN
-            localStorage.setItem("user_email", email)                       // ← SAVE EMAIL
+            localStorage.setItem("token", response.data.access_token)      
+            localStorage.setItem("user_email", email)                      
             localStorage.setItem("is_admin", response.data.is_admin) 
             
             setPage("dashboard")

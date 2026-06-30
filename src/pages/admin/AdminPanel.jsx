@@ -32,8 +32,13 @@ function AdminPanel({ setPage }) {
                 stock_quantity: parseInt(form.stock_quantity)
             }
             if (editId) {
-                await axios.put(`http://localhost:8000/api/products/${editId}`, payload, { headers })
-                setMessage("Product updated!")
+            if (!Number.isInteger(editId)) {
+                setMessage("Invalid product id")
+                return
+            }
+            
+            await axios.put(`http://localhost:8000/api/products/${editId}`, payload, { headers })
+            setMessage("Product updated!")
             } else {
                 await axios.post("http://localhost:8000/api/products/", payload, { headers })
                 setMessage("Product added!")
@@ -57,6 +62,9 @@ function AdminPanel({ setPage }) {
     }
 
     const handleDelete = async (id) => {
+        if(!Number.isInteger(id)) {
+            setMessage("Invalid product id")
+        }
         try {
             await axios.delete(`http://localhost:8000/api/products/${id}`, { headers })
             setMessage("Product deleted!")

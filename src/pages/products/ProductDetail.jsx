@@ -6,6 +6,9 @@ function ProductDetail({setPage,productId}){
    const [customerId, setCustomerId] = useState("")  // replaces orderId
 const [quantity, setQuantity] = useState("")
 const [cartMessage, setCartMessage] = useState("")
+
+const isValidId = (id) => Number.isInteger(Number(id)) && Number(id) > 0
+
     useEffect(()=>{
     const fetchProduct=async()=>{
     const response= await axios.get(`http://localhost:8000/api/products/${productId}`,{withCredentials: true})
@@ -15,6 +18,7 @@ const [cartMessage, setCartMessage] = useState("")
     },[])
 
     const handleDelete = async () => {
+    if (!isValidId(productId)) return    
     try {
         await axios.delete(`http://localhost:8000/api/products/${productId}`, {withCredentials: true})
         setPage("productList")
@@ -23,6 +27,7 @@ const [cartMessage, setCartMessage] = useState("")
     }
 }
 const handleAddToCart = async () => {
+    if (!isValidId(productId)) return
     try {
         const orderResponse = await axios.get(`http://localhost:8000/api/carts/active/${customerId}`, {withCredentials: true})
         const activeOrderId = orderResponse.data.order_id
