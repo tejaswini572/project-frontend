@@ -10,6 +10,7 @@ const [cartMessage, setCartMessage] = useState("")
 const isValidId = (id) => Number.isInteger(Number(id)) && Number(id) > 0
 
     useEffect(()=>{
+        if (!isValidId(productId)) return
     const fetchProduct=async()=>{
     const response= await axios.get(`http://localhost:8000/api/products/${productId}`,{withCredentials: true})
         setProduct(response.data)
