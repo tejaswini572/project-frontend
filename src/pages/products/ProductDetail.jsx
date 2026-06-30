@@ -88,7 +88,9 @@ return(
 }
 
 ProductDetail.propTypes = {
-    setPage: PropTypes.func.isRequired
+    setPage: PropTypes.func.isRequired,
+    productIdId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
 }
+
 
 export default ProductDetail

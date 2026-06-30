@@ -29,8 +29,8 @@ function AdminPanel({ setPage }) {
             const payload = {
                 product_name: form.product_name,
                 category: form.category,
-                price: parseFloat(form.price),
-                stock_quantity: parseInt(form.stock_quantity)
+                price: Number.parseFloat(form.price),
+                stock_quantity: Number.parseInt(form.stock_quantity)
             }
             if (editId) {
             if (!Number.isInteger(editId)) {

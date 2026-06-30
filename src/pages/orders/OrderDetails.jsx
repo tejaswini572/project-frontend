@@ -91,7 +91,8 @@ function OrderDetail({setPage, orderId}){
     )
 }
 
-OrderDetails.propTypes = {
-    setPage: PropTypes.func.isRequired
+OrderDetail.propTypes = {
+    setPage: PropTypes.func.isRequired,
+    orderId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
 }
-export default OrderDetails
+export default OrderDetail
