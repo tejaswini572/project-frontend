@@ -6,52 +6,64 @@ function OrderDetail({setPage, orderId}){
     const [order, setOrder] = useState(null)
     const [items, setItems] = useState([])
 
- const isValidId = (id) => Number.isInteger(id) && id > 0
-
     useEffect(()=>{
         const fetchOrder = async()=>{
-            if (!isValidId(orderId)) return
-            const safeOrderId = encodeURIComponent(orderId)
-            const response = await axios.get(`http://localhost:8000/api/carts/${safeOrderId}`, {withCredentials: true})
+            const orderIdNum = Number(orderId)
+            if (!Number.isInteger(orderIdNum) || orderIdNum <= 0) {
+                throw new Error("Invalid Order ID")
+            }
+            const response = await axios.get(`http://localhost:8000/api/carts/${orderIdNum}`, {withCredentials: true})
             setOrder(response.data)
         }
         fetchOrder()
     },[])
+
     useEffect(()=>{
-    const fetchItems = async()=>{
-        if (!isValidId(orderId)) return
-        const safeOrderId = encodeURIComponent(orderId)
-        const response = await axios.get(`http://localhost:8000/api/order_item/order/${safeOrderId}`, {withCredentials: true})
-        setItems(response.data)
-    }
-    fetchItems()
-},[])
+        const fetchItems = async()=>{
+            const orderIdNum = Number(orderId)
+            if (!Number.isInteger(orderIdNum) || orderIdNum <= 0) {
+                throw new Error("Invalid Order ID")
+            }
+            const response = await axios.get(`http://localhost:8000/api/order_item/order/${orderIdNum}`, {withCredentials: true})
+            setItems(response.data)
+        }
+        fetchItems()
+    },[])
 
     const handleDelete = async () => {
-        if (!isValidId(orderId)) return
+        const orderIdNum = Number(orderId)
+        if (!Number.isInteger(orderIdNum) || orderIdNum <= 0) {
+            throw new Error("Invalid Order ID")
+        }
         try {
-            const safeId = encodeURIComponent(orderId)
-            await axios.delete(`http://localhost:8000/api/carts/${safeId}`, {withCredentials: true})
+            await axios.delete(`http://localhost:8000/api/carts/${orderIdNum}`, {withCredentials: true})
             setPage("orderList")
         } catch (error) {
             console.error(error)
             alert("Cannot delete this order — it still has items. Remove all items first.")
+        }
     }
-    }
+
     const handleRemoveItem = async (orderItemId) => {
-        if (!isValidId(orderItemId) || !isValidId(orderId)) return
-    try {
-        const safeId = encodeURIComponent(orderItemId)
-        await axios.delete(`http://localhost:8000/api/order_item/${safeId}`, {withCredentials: true})
-        setItems(items.filter(item => item.order_item_id !== orderItemId))
-         const safeOrderId = encodeURIComponent(orderId)
-        const response = await axios.get(`http://localhost:8000/api/carts/${safeOrderId}`, {withCredentials: true})
-        setOrder(response.data)
-    } catch (error) {
-        console.error(error)
-        alert("Error removing item")
+        const orderItemIdNum = Number(orderItemId)
+        const orderIdNum = Number(orderId)
+        if (!Number.isInteger(orderItemIdNum) || orderItemIdNum <= 0) {
+            throw new Error("Invalid Order Item ID")
+        }
+        if (!Number.isInteger(orderIdNum) || orderIdNum <= 0) {
+            throw new Error("Invalid Order ID")
+        }
+        try {
+            await axios.delete(`http://localhost:8000/api/order_item/${orderItemIdNum}`, {withCredentials: true})
+            setItems(items.filter(item => item.order_item_id !== orderItemId))
+            const response = await axios.get(`http://localhost:8000/api/carts/${orderIdNum}`, {withCredentials: true})
+            setOrder(response.data)
+        } catch (error) {
+            console.error(error)
+            alert("Error removing item")
+        }
     }
-}
+
     if(!order) return <p>Loading...</p>
 
     return(
@@ -62,22 +74,22 @@ function OrderDetail({setPage, orderId}){
                 <p className="text-blue-500 font-bold mb-2">Total: ${order.total_amount}</p>
                 <p className="text-gray-400 mb-4">Status: {order.status}</p>
                 <div className="mb-4">
-    <h3 className="text-md font-semibold text-gray-700 mb-2">Items in this order:</h3>
-    {items.map(item => (
-        <div key={item.order_item_id} className="border-t pt-2 mt-2 flex justify-between items-center">
-            <div>
-                <p className="text-sm text-gray-600">Product ID: {item.product_id}</p>
-                <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
-                <p className="text-sm text-gray-600">Unit Price: ${item.unit_price}</p>
-            </div>
-            <button 
-                onClick={() => handleRemoveItem(item.order_item_id)}
-                className="bg-red-400 hover:bg-red-500 text-white text-xs px-3 py-1 rounded-lg">
-                Remove
-            </button>
-        </div>
-    ))}
-</div>
+                    <h3 className="text-md font-semibold text-gray-700 mb-2">Items in this order:</h3>
+                    {items.map(item => (
+                        <div key={item.order_item_id} className="border-t pt-2 mt-2 flex justify-between items-center">
+                            <div>
+                                <p className="text-sm text-gray-600">Product ID: {item.product_id}</p>
+                                <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+                                <p className="text-sm text-gray-600">Unit Price: ${item.unit_price}</p>
+                            </div>
+                            <button 
+                                onClick={() => handleRemoveItem(item.order_item_id)}
+                                className="bg-red-400 hover:bg-red-500 text-white text-xs px-3 py-1 rounded-lg">
+                                Remove
+                            </button>
+                        </div>
+                    ))}
+                </div>
                 <button 
                     onClick={()=> setPage("orderList")}
                     className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
