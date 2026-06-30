@@ -13,7 +13,7 @@ function EditOrder({ setPage, orderId }) {
     useEffect(() => {
         if (!isValidId(orderId)) return
         const fetchOrder = async () => {
-            const response = await axios.get(`http://localhost:8000/api/carts/${orderId}`, { withCredentials: true })
+            await axios.get(`http://localhost:8000/api/carts/${orderId}`, { withCredentials: true })
             setCustomerId(response.data.customer_id)
             setTotalAmount(response.data.total_amount)
             setStatus(response.data.status)

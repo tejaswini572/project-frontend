@@ -29,7 +29,7 @@ function EditCustomer({ setPage, customerId }) {
             return
         }
         try {
-            const response = await axios.put(`http://localhost:8000/api/users/${customerId}`, {
+            await axios.put(`http://localhost:8000/api/users/${customerId}`, {
                 first_name: firstName,
                 last_name: lastName,
                 email: email,

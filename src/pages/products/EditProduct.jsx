@@ -14,7 +14,7 @@ function EditProduct({ setPage, productId }) {
     useEffect(() => {
         if (!isValidId(productId)) return
         const fetchProduct = async () => {
-            const response = await axios.get(`http://localhost:8000/api/products/${productId}`, { withCredentials: true })
+            await axios.get(`http://localhost:8000/api/products/${productId}`, { withCredentials: true })
             setProductName(response.data.product_name)
             setCategory(response.data.category)
             setPrice(response.data.price)

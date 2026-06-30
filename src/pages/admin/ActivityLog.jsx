@@ -2,6 +2,18 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import PropTypes from "prop-types"
 
+const ACTION_STYLES = {
+    login: "bg-green-100 text-green-700",
+    add_product: "bg-blue-100 text-blue-700",
+    update_product: "bg-yellow-100 text-yellow-700",
+}
+
+const DEFAULT_ACTION_STYLE = "bg-red-100 text-red-700"
+
+function getActionStyle(action) {
+    return ACTION_STYLES[action] ??  DEFAULT_ACTION_STYLE
+}
+
 function ActivityLog({ setPage }) {
     const [logs, setLogs] = useState([])
     const [message, setMessage] = useState("")
@@ -48,11 +60,7 @@ function ActivityLog({ setPage }) {
                                 <tr key={log.log_id} className="border-b hover:bg-gray-50">
                                     <td className="px-6 py-4">{log.user_email}</td>
                                     <td className="px-6 py-4">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-semibold
-                                            ${log.action === "login" ? "bg-green-100 text-green-700" :
-                                            log.action === "add_product" ? "bg-blue-100 text-blue-700" :
-                                            log.action === "update_product" ? "bg-yellow-100 text-yellow-700" :
-                                            "bg-red-100 text-red-700"}`}>
+                                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getActionStyle(log.action)}`}>
                                             {log.action}
                                         </span>
                                     </td>
