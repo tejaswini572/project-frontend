@@ -2,23 +2,30 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import PropTypes from "prop-types"
 
-function EditOrder({setPage, orderId}) {
+function EditOrder({ setPage, orderId }) {
     const [customerId, setCustomerId] = useState("")
     const [totalAmount, setTotalAmount] = useState("")
     const [status, setStatus] = useState("")
     const [message, setMessage] = useState("")
 
-    useEffect(()=>{
-        const fetchOrder = async()=>{
-            const response = await axios.get(`http://localhost:8000/api/carts/${orderId}`, {withCredentials: true})
+    const isValidId = (id) => Number.isInteger(Number(id)) && Number(id) > 0
+
+    useEffect(() => {
+        if (!isValidId(orderId)) return
+        const fetchOrder = async () => {
+            const response = await axios.get(`http://localhost:8000/api/carts/${orderId}`, { withCredentials: true })
             setCustomerId(response.data.customer_id)
             setTotalAmount(response.data.total_amount)
             setStatus(response.data.status)
         }
         fetchOrder()
-    },[])
+    }, [])
 
     const handleEditOrder = async () => {
+        if (!isValidId(orderId)) {
+            setMessage("Invalid order id")
+            return
+        }
         try {
             const response = await axios.put(`http://localhost:8000/api/carts/${orderId}`, {
                 customer_id: customerId,
@@ -50,16 +57,20 @@ function EditOrder({setPage, orderId}) {
                     Update Order
                 </button>
                 {message && <p className="text-center text-sm text-green-500">{message}</p>}
-                <p onClick={() => setPage("orderList")}
-                    className="text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline">
+                <button
+                    type="button"
+                    onClick={() => setPage("orderList")}
+                    className="block w-full text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline bg-transparent border-none">
                     Back to Orders
-                </p>
+                </button>
             </div>
         </div>
     )
 }
 
 EditOrder.propTypes = {
-    setPage: PropTypes.func.isRequired
+    setPage: PropTypes.func.isRequired,
+    orderId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
 }
+
 export default EditOrder

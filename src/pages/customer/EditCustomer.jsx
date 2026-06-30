@@ -2,40 +2,47 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import PropTypes from "prop-types"
 
-function EditCustomer({setPage,customerId}) {
-    const [firstName,setFirstName]=useState("")
-    const [lastName,setLastName]=useState("")
-    const [email,setEmail]=useState("")
-    const [phone,setPhone] = useState("")
-    const [message,setMessage]= useState("")
+function EditCustomer({ setPage, customerId }) {
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [message, setMessage] = useState("")
 
-    useEffect(()=>{
-        const fetchCustomer= async() =>{
-            const response= await axios.get(`http://localhost:8000/api/users/${customerId}`, {withCredentials: true})
+    const isValidId = (id) => Number.isInteger(Number(id)) && Number(id) > 0
+
+    useEffect(() => {
+        if (!isValidId(customerId)) return
+        const fetchCustomer = async () => {
+            const response = await axios.get(`http://localhost:8000/api/users/${customerId}`, { withCredentials: true })
             setFirstName(response.data.first_name)
             setLastName(response.data.last_name)
             setEmail(response.data.email)
             setPhone(response.data.phone)
         }
         fetchCustomer()
-    },[])
+    }, [])
 
-
-  const handleEditCustomer = async () => {
-    try {
-        const response = await axios.put(`http://localhost:8000/api/users/${customerId}`, {
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            phone: phone
-        }, { withCredentials: true })
-        setMessage("Customer updated successfully")
-    } catch (error) {
-        const detail = error.response?.data?.detail
-        setMessage(typeof detail === "string" ? detail : "Error occurred")
+    const handleEditCustomer = async () => {
+        if (!isValidId(customerId)) {
+            setMessage("Invalid customer id")
+            return
+        }
+        try {
+            const response = await axios.put(`http://localhost:8000/api/users/${customerId}`, {
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                phone: phone
+            }, { withCredentials: true })
+            setMessage("Customer updated successfully")
+        } catch (error) {
+            const detail = error.response?.data?.detail
+            setMessage(typeof detail === "string" ? detail : "Error occurred")
+        }
     }
-}
-return (
+
+    return (
         <div className="min-h-screen bg-gray-100 p-8 flex items-center justify-center">
             <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-md">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">Edit Customer</h2>
@@ -56,16 +63,20 @@ return (
                     Update Customer
                 </button>
                 {message && <p className="text-center text-sm text-green-500">{message}</p>}
-                <p onClick={() => setPage("customerList")}
-                    className="text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline">
+                <button
+                    type="button"
+                    onClick={() => setPage("customerList")}
+                    className="block w-full text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline bg-transparent border-none">
                     Back to Customers
-                </p>
+                </button>
             </div>
         </div>
     )
 }
+
 EditCustomer.propTypes = {
-    setPage: PropTypes.func.isRequired
+    setPage: PropTypes.func.isRequired,
+    customerId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
 }
 
 export default EditCustomer

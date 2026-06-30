@@ -45,10 +45,13 @@ function AddCustomer({ setPage }){
                 <button onClick={handleAddCustomer} className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg mb-4">
                     Add Customer
                 </button>
-                {message && <p className="text-center text-sm text-green-500">{message}</p>}
-                <p onClick={() => setPage("customerList")} className="text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline">
-                    Back to Customers
-                </p>
+                {message && <p className="text-center text-sm mb-4 text-green-500">{message}</p>}
+                <button
+                type="button"
+                onClick={() => setPage("customerList")}
+                className="block w-full text-center text-sm mt-2 text-blue-500 cursor-pointer hover:underline bg-transparent border-none">
+                Back to Customers
+            </button>
             </div>
         </div>
     )

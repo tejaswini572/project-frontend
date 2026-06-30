@@ -40,10 +40,12 @@ function AddOrder({ setPage }) {
                     Add Order
                 </button>
                 {message && <p className="text-center text-sm text-green-500">{message}</p>}
-                <p onClick={() => setPage("orderList")}
-                    className="text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline">
+                <button
+                    type="button"
+                    onClick={() => setPage("orderList")}
+                    className="block w-full text-center text-sm mt-4 text-blue-500 cursor-pointer hover:underline bg-transparent border-none">
                     Back to Orders
-                </p>
+                </button>
             </div>
         </div>
     )
@@ -52,4 +54,5 @@ function AddOrder({ setPage }) {
 AddOrder.propTypes = {
     setPage: PropTypes.func.isRequired
 }
+
 export default AddOrder
