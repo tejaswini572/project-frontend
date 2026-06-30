@@ -37,8 +37,8 @@ function AdminPanel({ setPage }) {
                 setMessage("Invalid product id")
                 return
             }
-            
-            await axios.put(`http://localhost:8000/api/products/${editId}`, payload, { headers })
+            const safeId = encodeURIComponent(editId)
+            await axios.put(`http://localhost:8000/api/products/${safeId}`, payload, { headers })
             setMessage("Product updated!")
             } else {
                 await axios.post("http://localhost:8000/api/products/", payload, { headers })
@@ -68,7 +68,8 @@ function AdminPanel({ setPage }) {
             return
         }
         try {
-            await axios.delete(`http://localhost:8000/api/products/${id}`, { headers })
+            const safeId = encodeURIComponent(id)
+            await axios.delete(`http://localhost:8000/api/products/${safeId}`, { headers })
             setMessage("Product deleted!")
             fetchProducts()
         } catch {
